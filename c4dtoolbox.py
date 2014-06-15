@@ -22,8 +22,8 @@ def getTarget():
 
 def initDoc():
     doc = getDoc()
-    target = getTarget()
     fps = getFps()
+    target = getTarget()
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
@@ -41,6 +41,47 @@ def refresh():
 
 def rndVec(_x1=0,_x2=1,_y1=0,_y2=1,_z1=0,_z2=1):
     return c4d.Vector(rnd(_x1,_x2),rnd(_y1,_y2),rnd(_z1,_z2))
+
+def setPos(x,y,z):
+    target = getTarget()
+    p = c4d.Vector(x,y,z)
+    target[0].SetAbsPos(p)
+    refresh()
+
+def setRot(x,y,z):
+    target = getTarget()
+    r = c4d.Vector(x,y,z)
+    target[0].SetAbsRot(r)
+    refresh()
+
+move = setPos
+rotate = setRot
+
+def getPos(target=None):
+    if not target:
+        target = getTarget()
+    p = target[0].GetAbsPos()
+    return p
+
+def getRot(target=None):
+    if not target:
+        target = getTarget()
+    r = target[0].GetAbsRot()
+    return r
+
+def ident(target=None):
+    if not target:
+        target = getTarget()
+
+    if len(target) > 0: # we have one or more target objects in the scene
+        for ob in target:
+            print "Object: " + ob.GetName() + ", type: <" + ob.GetTypeName() + ">, ID: " + str(ob.GetType())
+
+def polyCube():
+    obj = c4d.BaseObject(c4d.Ocube) # Create new cube
+    obj.SetRelPos(c4d.Vector(20))   # Set position of cube
+    doc.InsertObject(obj)  
+    refresh()
 
 '''
 def keyframe(_obj):
