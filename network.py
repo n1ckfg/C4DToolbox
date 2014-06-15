@@ -1,10 +1,9 @@
-#
-# helpers.py -- first simple helpers for Cinema4D
-#
-
-import c4d
+import c4d, math, sys
 import socket, time, threading
-import c4dtoolbox
+from random import uniform as rnd
+from c4dtoolbox import *
+
+# Based on https://github.com/jusu/Cinema4D-Helpers
 
 #
 # Udp

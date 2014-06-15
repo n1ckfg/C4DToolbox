@@ -1,17 +1,23 @@
-import c4d, math
+import c4d, math, sys
 import socket, time, threading
 from random import uniform as rnd
 
 #~~~~~~~~~~~~~   init  ~~~~~~~~~~~~~~~~~
-global doc, target, fps
+
+doc = c4d.documents.GetActiveDocument()
+fps = doc.GetFps()
+target = doc.GetActiveObjects(0)
 
 def getDoc():
+    doc = c4d.documents.GetActiveDocument()
     return c4d.documents.GetActiveDocument()
 
 def getFps():
+    fps = doc.GetFps()
     return doc.GetFps()
 
 def getTarget():
+    target = doc.GetActiveObjects(0)
     return doc.GetActiveObjects(0)
 
 def initDoc():
@@ -19,9 +25,6 @@ def initDoc():
     target = getTarget()
     fps = getFps()
 
-def main():
-    initDoc()
-    
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
 def getFrame():
@@ -39,11 +42,13 @@ def refresh():
 def rndVec(_x1=0,_x2=1,_y1=0,_y2=1,_z1=0,_z2=1):
     return c4d.Vector(rnd(_x1,_x2),rnd(_y1,_y2),rnd(_z1,_z2))
 
+'''
 def keyframe(_obj):
     track = _obj.GetFirstCTrack() #Get it's first animation track (position X) 
     curve = track.GetCurve() #Get the curve for the track found(position x)
     added = curve.AddKey(0) #Moves the first key on the Position .X track to where the scrubber is
     added.SetValue(11)    
+'''
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 for i in range(1,10):
@@ -60,7 +65,7 @@ for i in range(1,10):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+# Based on https://github.com/jusu/Cinema4D-Helpers
 #
 # Misc
 #
@@ -73,12 +78,11 @@ def frame(doc):
 # Keying
 #
 
-def getVec(id):
+def getVecIds(id=c4d.ID_BASEOBJECT_GLOBAL_POSITION):
     """Get IDs for X, Y, Z components of a vector id. For example, XYZ of c4d.ID_BASEOBJECT_GLOBAL_POSITION"""
     x = c4d.DescID(c4d.DescLevel(id, c4d.DTYPE_VECTOR, 0), c4d.DescLevel(c4d.VECTOR_X, c4d.DTYPE_REAL, 0))
     y = c4d.DescID(c4d.DescLevel(id, c4d.DTYPE_VECTOR, 0), c4d.DescLevel(c4d.VECTOR_Y, c4d.DTYPE_REAL, 0))
     z = c4d.DescID(c4d.DescLevel(id, c4d.DTYPE_VECTOR, 0), c4d.DescLevel(c4d.VECTOR_Z, c4d.DTYPE_REAL, 0))
-
     return (x, y, z)
 
 def createKey(op, id, value, forFrame = None):
@@ -106,7 +110,7 @@ def addFloatKey(op, id):
     createKey(op, id, op[id])
 
 def addVectorKey(op, id):
-    ids = getVec(id)
+    ids = getVecIds(id)
     v = op[id]
 
     createKey(op, ids[0], v.x)
