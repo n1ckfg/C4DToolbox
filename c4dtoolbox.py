@@ -134,17 +134,20 @@ def addVectorKey(op, id):
     createKey(op, ids[1], v.y)
     createKey(op, ids[2], v.z)
 
-def addKey(op=getTarget()[0], id=c4d.ID_BASEOBJECT_REL_POSITION):
+def addKey(op, id):
     t = type(op[id])
     if t == int or t == float:
         addFloatKey(op, id)
     else:
         addVectorKey(op, id)
+
+def keyframe(op=getTarget()[0], id=c4d.ID_BASEOBJECT_REL_POSITION):
+    initDoc()
+    addKey(op,id)
     refresh()
 
 #~~~~~~~~~~~~~   MayaToolbox shortcuts  ~~~~~~~~~~~~~~~~~
 
 s = getTarget
-keyframe = addKey
 move = setPos
 rotate = setRot
