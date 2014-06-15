@@ -54,9 +54,6 @@ def setRot(x,y,z):
     target[0].SetAbsRot(r)
     refresh()
 
-move = setPos
-rotate = setRot
-
 def getPos(target=None):
     if not target:
         target = getTarget()
@@ -83,28 +80,7 @@ def polyCube():
     doc.InsertObject(obj)  
     refresh()
 
-'''
-def keyframe(_obj):
-    track = _obj.GetFirstCTrack() #Get it's first animation track (position X) 
-    curve = track.GetCurve() #Get the curve for the track found(position x)
-    added = curve.AddKey(0) #Moves the first key on the Position .X track to where the scrubber is
-    added.SetValue(11)    
-'''
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-'''
-for i in range(1,10):
-    cube = c4d.BaseObject(c4d.Ocube)     # Allocate a new cube object at (0, 0, 0)
-    doc.InsertObject(cube)
-    cube.SetAbsPos(c4d.Vector(rnd(-1000,1000),rnd(-1000,1000),rnd(-1000,1000)))
-    cube.SetAbsScale(c4d.Vector(1,5,1))
-    #keyframe(cube)
-'''
-# setFrame(22)
-# print frame()
-# refresh()
-# print target
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Based on https://github.com/jusu/Cinema4D-Helpers
 #
@@ -119,7 +95,7 @@ def frame(doc):
 # Keying
 #
 
-def getVecIds(id=c4d.ID_BASEOBJECT_GLOBAL_POSITION):
+def getVecIds(id=c4d.ID_BASEOBJECT_REL_POSITION):
     """Get IDs for X, Y, Z components of a vector id. For example, XYZ of c4d.ID_BASEOBJECT_GLOBAL_POSITION"""
     x = c4d.DescID(c4d.DescLevel(id, c4d.DTYPE_VECTOR, 0), c4d.DescLevel(c4d.VECTOR_X, c4d.DTYPE_REAL, 0))
     y = c4d.DescID(c4d.DescLevel(id, c4d.DTYPE_VECTOR, 0), c4d.DescLevel(c4d.VECTOR_Y, c4d.DTYPE_REAL, 0))
@@ -158,9 +134,17 @@ def addVectorKey(op, id):
     createKey(op, ids[1], v.y)
     createKey(op, ids[2], v.z)
 
-def addKey(op, id):
+def addKey(op=getTarget()[0], id=c4d.ID_BASEOBJECT_REL_POSITION):
     t = type(op[id])
     if t == int or t == float:
         addFloatKey(op, id)
     else:
         addVectorKey(op, id)
+    refresh()
+
+#~~~~~~~~~~~~~   MayaToolbox shortcuts  ~~~~~~~~~~~~~~~~~
+
+s = getTarget
+keyframe = addKey
+move = setPos
+rotate = setRot
