@@ -8,29 +8,39 @@ def getDoc():
     return c4d.documents.GetActiveDocument()
 
 def getFps():
+    doc = getDoc()
     return doc.GetFps()
 
 def getTarget():
+    doc = getDoc()
     return doc.GetActiveObjects(0)
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
 def getFrame():
     doc = getDoc()
+    fps = getFps()
     curTime = doc.GetTime()
     curFrame = curTime.GetFrame(fps)
     return curFrame
 
 def setFrame(_frame):
     doc = getDoc()
+    fps = getFps()
     doc.SetTime(c4d.BaseTime(_frame, fps))
 
 def refresh():
     c4d.EventAdd()
     c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
-def rndVec(_x1=0,_x2=1,_y1=0,_y2=1,_z1=0,_z2=1):
-    return c4d.Vector(rnd(_x1,_x2),rnd(_y1,_y2),rnd(_z1,_z2))
+#random 3d vector
+def rnd3d(spread=5):
+    return c4d.Vector(rnd(-spread,spread),rnd(-spread,spread),rnd(-spread,spread))
+
+#move to random location
+def rndMove(spread=5):
+    val = rnd3d(spread)
+    move(val[0],val[1],val[2])
 
 def setPos(x,y,z):
     target = getTarget()
@@ -153,3 +163,13 @@ def keyframe(target=None, id=None):
 s = getTarget
 move = setPos
 rotate = setRot
+
+def m(p):
+    move(p[0],p[1],[2])
+
+def t(_t=None):
+    try:
+        setFrame(_t)
+    except:
+        print "time: " + str(getFrame())
+    return getFrame()
