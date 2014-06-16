@@ -4,35 +4,25 @@ from random import uniform as rnd
 
 #~~~~~~~~~~~~~   init  ~~~~~~~~~~~~~~~~~
 
-doc = c4d.documents.GetActiveDocument()
-fps = doc.GetFps()
-target = doc.GetActiveObjects(0)
-
 def getDoc():
-    doc = c4d.documents.GetActiveDocument()
     return c4d.documents.GetActiveDocument()
 
 def getFps():
-    fps = doc.GetFps()
     return doc.GetFps()
 
 def getTarget():
-    target = doc.GetActiveObjects(0)
     return doc.GetActiveObjects(0)
-
-def initDoc():
-    doc = getDoc()
-    fps = getFps()
-    target = getTarget()
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
 def getFrame():
+    doc = getDoc()
     curTime = doc.GetTime()
     curFrame = curTime.GetFrame(fps)
     return curFrame
 
 def setFrame(_frame):
+    doc = getDoc()
     doc.SetTime(c4d.BaseTime(_frame, fps))
 
 def refresh():
@@ -75,9 +65,10 @@ def ident(target=None):
             print "Object: " + ob.GetName() + ", type: <" + ob.GetTypeName() + ">, ID: " + str(ob.GetType())
 
 def polyCube():
-    obj = c4d.BaseObject(c4d.Ocube) # Create new cube
-    obj.SetRelPos(c4d.Vector(20))   # Set position of cube
-    doc.InsertObject(obj)  
+    doc = getDoc()
+    target = c4d.BaseObject(c4d.Ocube) # Create new cube
+    target.SetRelPos(c4d.Vector(20))   # Set position of cube
+    doc.InsertObject(target)  
     refresh()
 
 
@@ -141,9 +132,20 @@ def addKey(op, id):
     else:
         addVectorKey(op, id)
 
-def keyframe(op=getTarget()[0], id=c4d.ID_BASEOBJECT_REL_POSITION):
-    initDoc()
-    addKey(op,id)
+def keyframe(target=None, id=None):
+    if not target:
+        target=getTarget()
+
+    if not id:
+        id=c4d.ID_BASEOBJECT_REL_POSITION
+        addKey(target[0],id)
+        id=c4d.ID_BASEOBJECT_REL_ROTATION
+        addKey(target[0],id)
+        id=c4d.ID_BASEOBJECT_REL_SCALE
+        addKey(target[0],id)
+    else:
+        addKey(target[0],id)
+        
     refresh()
 
 #~~~~~~~~~~~~~   MayaToolbox shortcuts  ~~~~~~~~~~~~~~~~~
