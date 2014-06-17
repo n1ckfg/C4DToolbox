@@ -2,7 +2,7 @@ import c4d, math, sys
 import socket, time, threading
 from random import uniform as rnd
 
-#~~~~~~~~~~~~~   init  ~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~   core  ~~~~~~~~~~~~~~~~~
 
 def getDoc():
     return c4d.documents.GetActiveDocument()
@@ -14,6 +14,28 @@ def getFps():
 def getTarget():
     doc = getDoc()
     return doc.GetActiveObjects(0)
+
+def getMode():
+    returns = ""
+    if c4d.IsCommandChecked(12101): # Object Mode
+        returns = "object"
+    elif c4d.IsCommandChecked(12298): # Model Mode
+        returns = "model"
+    return returns
+
+def setMode(s = "model"):
+    returns = ""
+    if s=="model":
+        returns = "model"
+        c4d.CallCommand(12298) # Model Mode
+    elif s=="object":
+        returns = "object"
+        c4d.CallCommand(12101) # Object Mode
+    return returns
+
+def refresh():
+    c4d.EventAdd()
+    c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
@@ -28,10 +50,6 @@ def setFrame(_frame):
     doc = getDoc()
     fps = getFps()
     doc.SetTime(c4d.BaseTime(_frame, fps))
-
-def refresh():
-    c4d.EventAdd()
-    c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
 #random 3d vector
 def rnd3d(spread=5):
@@ -94,7 +112,7 @@ def polyCube():
     refresh()
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~   keyframes  ~~~~~~~~~~~~~~~~~
 # Based on https://github.com/jusu/Cinema4D-Helpers
 #
 # Misc
@@ -159,12 +177,17 @@ def keyframe(target=None, id=None):
         target=getTarget()
 
     if not id:
+        #origMode = getMode()
+        setMode("object")
+
         id=c4d.ID_BASEOBJECT_REL_POSITION
         addKey(target[0],id)
         id=c4d.ID_BASEOBJECT_REL_ROTATION
         addKey(target[0],id)
         id=c4d.ID_BASEOBJECT_REL_SCALE
         addKey(target[0],id)
+
+        #setMode(origMode)
     else:
         addKey(target[0],id)
         
