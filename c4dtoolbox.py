@@ -54,6 +54,12 @@ def setRot(x,y,z):
     target[0].SetAbsRot(r)
     refresh()
 
+def setScale(x,y,z):
+    target = getTarget()
+    s = c4d.Vector(x,y,z)
+    target[0].SetAbsScale(s)
+    refresh()
+
 def getPos(target=None):
     if not target:
         target = getTarget()
@@ -65,6 +71,12 @@ def getRot(target=None):
         target = getTarget()
     r = target[0].GetAbsRot()
     return r
+
+def getScale(target=None):
+    if not target:
+        target = getTarget()
+    s = target[0].GetAbsScale()
+    return s
 
 def ident(target=None):
     if not target:
