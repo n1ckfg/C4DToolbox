@@ -37,17 +37,16 @@ def refresh():
     c4d.EventAdd()
     c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
-'''
 def select(target=None,d=False):
     if not target:
         target = getTarget()
-    for i in range(0,len(target)):
-        if d==False:
-            target[i].SetBit(c4d.BIT_ACTIVE)
-        elif d==True:
+    if d==False:
+        target.SetBit(c4d.BIT_ACTIVE)
+    elif d==True:
+        for i in range(0,len(target)):
             target[i].DelBit(c4d.BIT_ACTIVE)
     refresh()
-'''
+    return target
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
@@ -121,7 +120,8 @@ def polyCube():
     target = c4d.BaseObject(c4d.Ocube) # Create new cube
     target.SetRelPos(c4d.Vector(20))   # Set position of cube
     doc.InsertObject(target)
-    target.SetBit(c4d.BIT_ACTIVE)
+    #target.SetBit(c4d.BIT_ACTIVE)
+    select(target)
     refresh()
 
 
