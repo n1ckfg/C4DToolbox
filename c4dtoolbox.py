@@ -23,7 +23,7 @@ def getMode():
         returns = "model"
     return returns
 
-def setMode(s = "model"):
+def setMode(s = "object"):
     returns = ""
     if s=="model":
         returns = "model"
