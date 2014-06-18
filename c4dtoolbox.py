@@ -38,11 +38,12 @@ def refresh():
     #c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
 def select(target=None):
-    if not target:
-        target = getTarget()
+    #if not target:
+    #    target = getTarget()
+    deselect()
     target.SetBit(c4d.BIT_ACTIVE)
     refresh()
-    return target
+    #return target
 
 def deselect(target=None):
     if not target:
@@ -52,10 +53,12 @@ def deselect(target=None):
     refresh()
     #return target
   
+'''
 def iterate(target=None):
     deselect()
     select(target)
     #refresh()
+'''
 
 def getFrame():
     doc = getDoc()
@@ -228,8 +231,10 @@ scale = setScale
 s = getTarget
 rndVec = rnd3d
 
-def m(p):
+'''
+def m(p=[0,0,0]):
     move(p[0],p[1],[2])
+'''
 
 def t(_t=None):
     try:
