@@ -57,9 +57,6 @@ def iterate(target=None):
     select(target)
     #refresh()
 
-
-#~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
-
 def getFrame():
     doc = getDoc()
     fps = getFps()
@@ -72,14 +69,7 @@ def setFrame(_frame):
     fps = getFps()
     doc.SetTime(c4d.BaseTime(_frame, fps))
 
-#random 3d vector
-def rnd3d(spread=5):
-    return c4d.Vector(rnd(-spread,spread),rnd(-spread,spread),rnd(-spread,spread))
-
-#move to random location
-def rndMove(spread=5):
-    val = rnd3d(spread)
-    move(val[0],val[1],val[2])
+#~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
 def setPos(x,y,z):
     target = getTarget()
@@ -119,6 +109,15 @@ def getScale(target=None):
         target = getTarget()
     s = target[0].GetAbsScale()
     return s
+
+#random 3d vector
+def rnd3d(spread=5):
+    return c4d.Vector(rnd(-spread,spread),rnd(-spread,spread),rnd(-spread,spread))
+
+#move to random location
+def rndMove(spread=5):
+    val = rnd3d(spread)
+    move(val[0],val[1],val[2])    
 
 def ident(target=None):
     if not target:
@@ -226,7 +225,8 @@ def keyframe(target=None, id=None):
 move = setPos
 rotate = setRot
 scale = setScale
-s = select
+s = getTarget
+rndVec = rnd3d
 
 def m(p):
     move(p[0],p[1],[2])
