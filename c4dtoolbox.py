@@ -74,19 +74,22 @@ def rndMove(spread=5):
 def setPos(x,y,z):
     target = getTarget()
     p = c4d.Vector(x,y,z)
-    target[0].SetAbsPos(p)
+    for i in range(0,len(target)):
+        target[i].SetAbsPos(p)
     refresh()
 
 def setRot(x,y,z):
     target = getTarget()
     r = c4d.Vector(x,y,z)
-    target[0].SetAbsRot(r)
+    for i in range(0,len(target)):
+        target[i].SetAbsRot(r)
     refresh()
 
 def setScale(x,y,z):
     target = getTarget()
     s = c4d.Vector(x,y,z)
-    target[0].SetAbsScale(s)
+    for i in range(0,len(target)):
+        target[i].SetAbsScale(s)
     refresh()
 
 def getPos(target=None):
@@ -193,6 +196,7 @@ def keyframe(target=None, id=None):
         #origMode = getMode()
         setMode("object")
 
+        #for i in range(0,len(target)):
         id=c4d.ID_BASEOBJECT_REL_POSITION
         addKey(target[0],id)
         id=c4d.ID_BASEOBJECT_REL_ROTATION
@@ -202,6 +206,7 @@ def keyframe(target=None, id=None):
 
         #setMode(origMode)
     else:
+        #for i in range(0,len(target)):
         addKey(target[0],id)
         
     refresh()
