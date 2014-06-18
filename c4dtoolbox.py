@@ -35,7 +35,7 @@ def setMode(s = "object"):
 
 def refresh():
     c4d.EventAdd()
-    c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
+    #c4d.DrawViews(c4d.DRAWFLAGS_FORCEFULLREDRAW) #Update screen
 
 def select(target=None):
     if not target:
@@ -50,14 +50,13 @@ def deselect(target=None):
     for i in range(0,len(target)):
         target[i].DelBit(c4d.BIT_ACTIVE)
     refresh()
-    return target
-    
-def iterate(i=0,target=None):
-    if not target:
-        target = getTarget()
-    deselect(target)
-    select(target[i])
-    refresh()
+    #return target
+  
+def iterate(target=None):
+    deselect()
+    select(target)
+    #refresh()
+
 
 #~~~~~~~~~~~~~   utilities  ~~~~~~~~~~~~~~~~~
 
@@ -226,6 +225,8 @@ def keyframe(target=None, id=None):
 
 move = setPos
 rotate = setRot
+scale = setScale
+s = select
 
 def m(p):
     move(p[0],p[1],[2])
