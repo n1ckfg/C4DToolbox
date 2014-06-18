@@ -1,0 +1,20 @@
+1. To install, drop these .py files into your C4D modules directory. 
+By default, the modules directory is:
+
+Mac:
+/Users/*YOUR USERNAME*/Library/Preferences/MAXON/*YOUR CINEMA 4D VERSION*/library/python/packages/osx/
+
+Windows:
+C:\Users\*YOUR USERNAME*\AppData\Roaming\MAXON\*YOUR CINEMA 4D VERSION*\library\python\packages\win64\
+or
+C:\Users\*YOUR USERNAME*\AppData\Roaming\MAXON\*YOUR CINEMA 4D VERSION*\library\python\packages\win32\
+
+
+2. After restarting C4D, you can import these modules into new scripts that you put in the scripts directory.
+By default, the scripts directory is:
+
+Mac:
+/Users/*YOUR USERNAME*/Library/Preferences/MAXON/*YOUR CINEMA 4D VERSION*/library/scripts/
+
+Windows:
+C:\Users\*YOUR USERNAME*\AppData\Roaming\MAXON\*YOUR CINEMA 4D VERSION*\library\scripts\
