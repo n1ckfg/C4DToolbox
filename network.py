@@ -1,7 +1,10 @@
 import c4d, math, sys
 import socket, time, threading
 from random import uniform as rnd
+
+#~~~~~~~~~~~~~~~~~~
 from c4dtoolbox import *
+#~~~~~~~~~~~~~~~~~~
 
 # Based on https://github.com/jusu/Cinema4D-Helpers
 
