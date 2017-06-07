@@ -1,0 +1,68 @@
+Python Scripting Tools by Noah Witchell
+======================================= 
+
+  I. List of Scripts
+
+  1. NW Select First Object in Manager: This will select the first object in the Objects Manager
+
+  2. NW Select Next Object in Manager: This will select the next object in the Objects Manager,
+     relative to the currently selected object
+   
+  3. NW Select Previous Object in Manager: This will select the previous object in the Objects Manager,
+     relative to the currently selected object
+   
+  4. NW Select Child Object in Manager: This will select the child object in the Objects Manager,
+     relative to the currently selected object
+   
+  5. NW Select Parent Object in Manager: This will select the parent object in the Objects Manager,
+     relative to the currently selected object
+   
+  6. NW Move Object Down in Manager: Move the currently selected object down one space 
+     in the object hierarchy
+   
+  7. NW Move Object Up in Manager: Move the currently selected object up one space 
+     in the object hierarchy
+   
+  8. NW Make Object Child of Next in Manager: Make the currently selected object a child of 
+     the object below it in the hierarchy
+   
+  9. NW Make Object Child of Previous in Manager: Make the currently selected object a child of 
+     the object above it in the hierarchy
+   
+ 10. NW Remove Child to Next in Manager: Remove the currently selected object from under it's parent 
+     and place it after the former parent in the hierarchy
+   
+ 11. NW Remove Child to Previous in Manager: Remove the currently selected object from under it's parent 
+     and place it before the former parent in the hierarchy
+    
+ 12. NW Go To Frame: Move the playhead to the given frame number in the timeline
+
+ 13. NW Advance in Timeline: Move the playhead a given number of frames forward from the 
+     current frame in the timeline
+    
+ 14. NW Set a Keyframe: Set a keyframe for the given property of a selected object on the current frame
+
+ 15. NW Click Active Tool Apply: Activate the "Apply" button on the currently selected tool
+
+ 16. NW Insert Effector Into Cloner List: Insert a Mograph Effector into the scene and add it 
+     to the effector list for the currently selected Cloner object
+    
+    
+ 
+ II. Installation Instructions
+
+  1. Open Cinema 4D
+ 
+  2. Go to Edit > Preferences
+ 
+  3. In the newly opened Preferences window, go to the bottom left corner and click the 
+     "Open Preferences Folder" button
+    
+  4. In the newly opened OS window, go to the scripts folder located at: Cinema 4D > library > scripts
+ 
+  5. Grab the downloaded folder of scripts and place them in the scripts folder
+  
+  6. Restart Cinema 4D
+  
+  The scripts will now be available through the Customize Commands window and through the dropdown menu 
+  in your Script Manager.  Have fun!
